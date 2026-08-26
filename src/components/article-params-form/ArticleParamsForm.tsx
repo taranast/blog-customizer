@@ -1,14 +1,23 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { ArrowButton } from 'src/ui/arrow-button';
 import { Button } from 'src/ui/button';
 
 import styles from './ArticleParamsForm.module.scss';
 import clsx from 'clsx';
+import { useOutsideClickClose } from 'src/ui/select/hooks/useOutsideClickClose';
 
 export const ArticleParamsForm = () => {
 	const [isOpen, setIsOpen] = useState(false);
+	const rootRef = useRef<HTMLDivElement>(null);
+
+	useOutsideClickClose({
+		isOpen,
+		rootRef,
+		onChange: setIsOpen,
+	});
+
 	return (
-		<>
+		<div ref={rootRef}>
 			<ArrowButton
 				isOpen={isOpen}
 				onClick={() => {
@@ -24,6 +33,6 @@ export const ArticleParamsForm = () => {
 					</div>
 				</form>
 			</aside>
-		</>
+		</div>
 	);
 };
