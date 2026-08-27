@@ -44,13 +44,6 @@ export const ArticleParamsForm = (
 	useOutsideClickClose({
 		isOpen: isFormOpen,
 		rootRef,
-		onClose: () => {
-			setFontFamily(fontFamily);
-			setFontColor(fontColor);
-			setBackgroundColor(backgroundColor);
-			setContentWidth(contentWidth);
-			setFontSize(fontSize);
-		},
 		onChange: setIsFormOpen,
 	});
 
