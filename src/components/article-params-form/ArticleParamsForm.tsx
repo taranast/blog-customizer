@@ -26,7 +26,7 @@ interface ArticleParamsFormProps {
 export const ArticleParamsForm = (
 	articleParamsForm: ArticleParamsFormProps
 ) => {
-	const [isOpen, setIsOpen] = useState(false);
+	const [isFormOpen, setIsFormOpen] = useState(false);
 	const [fontFamily, setFontFamily] = useState(fontFamilyOptions[0]);
 	const [fontColor, setFontColor] = useState(fontColors[0]);
 	const [backgroundColor, setBackgroundColor] = useState(backgroundColors[0]);
@@ -35,7 +35,7 @@ export const ArticleParamsForm = (
 	const rootRef = useRef<HTMLDivElement>(null);
 
 	useOutsideClickClose({
-		isOpen,
+		isOpen: isFormOpen,
 		rootRef,
 		onClose: () => {
 			setFontFamily(fontFamily);
@@ -44,7 +44,7 @@ export const ArticleParamsForm = (
 			setContentWidth(contentWidth);
 			setFontSize(fontSize);
 		},
-		onChange: setIsOpen,
+		onChange: setIsFormOpen,
 	});
 
 	const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -70,13 +70,15 @@ export const ArticleParamsForm = (
 	return (
 		<div ref={rootRef}>
 			<ArrowButton
-				isOpen={isOpen}
+				isOpen={isFormOpen}
 				onClick={() => {
-					setIsOpen(!isOpen);
+					setIsFormOpen(!isFormOpen);
 				}}
 			/>
 			<aside
-				className={clsx(styles.container, { [styles.container_open]: isOpen })}>
+				className={clsx(styles.container, {
+					[styles.container_open]: isFormOpen,
+				})}>
 				<form className={styles.form} onSubmit={handleSubmit}>
 					<Text as='h2' size={31} weight={800} uppercase>
 						задайте параметры

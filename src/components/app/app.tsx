@@ -11,14 +11,14 @@ import {
 import styles from './app.module.scss';
 
 export const App = () => {
-	const [article, setArticle] = useState(defaultArticleState);
+	const [articleState, setArticleState] = useState(defaultArticleState);
 
 	const onReset = () => {
-		setArticle(defaultArticleState);
+		setArticleState(defaultArticleState);
 	};
 
 	const onSubmit = (form: ArticleStateType) => {
-		setArticle(form);
+		setArticleState(form);
 	};
 
 	return (
@@ -26,11 +26,11 @@ export const App = () => {
 			className={clsx(styles.main)}
 			style={
 				{
-					'--font-family': article.fontFamilyOption.value,
-					'--font-size': article.fontSizeOption.value,
-					'--font-color': article.fontColor.value,
-					'--container-width': article.contentWidth.value,
-					'--bg-color': article.backgroundColor.value,
+					'--font-family': articleState.fontFamilyOption.value,
+					'--font-size': articleState.fontSizeOption.value,
+					'--font-color': articleState.fontColor.value,
+					'--container-width': articleState.contentWidth.value,
+					'--bg-color': articleState.backgroundColor.value,
 				} as CSSProperties
 			}>
 			<ArticleParamsForm onSubmit={onSubmit} onReset={onReset} />
