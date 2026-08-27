@@ -12,6 +12,7 @@ import {
 	contentWidthArr,
 	fontSizeOptions,
 	ArticleStateType,
+	defaultArticleState,
 } from 'src/constants/articleProps';
 
 import styles from './ArticleParamsForm.module.scss';
@@ -27,11 +28,17 @@ export const ArticleParamsForm = (
 	articleParamsForm: ArticleParamsFormProps
 ) => {
 	const [isFormOpen, setIsFormOpen] = useState(false);
-	const [fontFamily, setFontFamily] = useState(fontFamilyOptions[0]);
-	const [fontColor, setFontColor] = useState(fontColors[0]);
-	const [backgroundColor, setBackgroundColor] = useState(backgroundColors[0]);
-	const [contentWidth, setContentWidth] = useState(contentWidthArr[0]);
-	const [fontSize, setFontSize] = useState(fontSizeOptions[0]);
+	const [fontFamily, setFontFamily] = useState(
+		defaultArticleState.fontFamilyOption
+	);
+	const [fontColor, setFontColor] = useState(defaultArticleState.fontColor);
+	const [backgroundColor, setBackgroundColor] = useState(
+		defaultArticleState.backgroundColor
+	);
+	const [contentWidth, setContentWidth] = useState(
+		defaultArticleState.contentWidth
+	);
+	const [fontSize, setFontSize] = useState(defaultArticleState.fontSizeOption);
 	const rootRef = useRef<HTMLDivElement>(null);
 
 	useOutsideClickClose({
@@ -59,11 +66,11 @@ export const ArticleParamsForm = (
 	};
 
 	const handleReset = () => {
-		setFontFamily(fontFamilyOptions[0]);
-		setFontColor(fontColors[0]);
-		setBackgroundColor(backgroundColors[0]);
-		setContentWidth(contentWidthArr[0]);
-		setFontSize(fontSizeOptions[0]);
+		setFontFamily(defaultArticleState.fontFamilyOption);
+		setFontColor(defaultArticleState.fontColor);
+		setBackgroundColor(defaultArticleState.backgroundColor);
+		setContentWidth(defaultArticleState.contentWidth);
+		setFontSize(defaultArticleState.fontSizeOption);
 		articleParamsForm.onReset();
 	};
 
