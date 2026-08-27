@@ -29,17 +29,7 @@ export const ArticleParamsForm = ({
 	onReset,
 }: ArticleParamsFormProps) => {
 	const [isFormOpen, setIsFormOpen] = useState(false);
-	const [fontFamily, setFontFamily] = useState(
-		defaultArticleState.fontFamilyOption
-	);
-	const [fontColor, setFontColor] = useState(defaultArticleState.fontColor);
-	const [backgroundColor, setBackgroundColor] = useState(
-		defaultArticleState.backgroundColor
-	);
-	const [contentWidth, setContentWidth] = useState(
-		defaultArticleState.contentWidth
-	);
-	const [fontSize, setFontSize] = useState(defaultArticleState.fontSizeOption);
+	const [formState, setFormState] = useState(defaultArticleState);
 	const rootRef = useRef<HTMLDivElement>(null);
 
 	useOutsideClickClose({
@@ -50,21 +40,11 @@ export const ArticleParamsForm = ({
 
 	const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
-		onSubmit({
-			fontFamilyOption: fontFamily,
-			fontColor: fontColor,
-			backgroundColor: backgroundColor,
-			contentWidth: contentWidth,
-			fontSizeOption: fontSize,
-		});
+		onSubmit(formState);
 	};
 
 	const handleReset = () => {
-		setFontFamily(defaultArticleState.fontFamilyOption);
-		setFontColor(defaultArticleState.fontColor);
-		setBackgroundColor(defaultArticleState.backgroundColor);
-		setContentWidth(defaultArticleState.contentWidth);
-		setFontSize(defaultArticleState.fontSizeOption);
+		setFormState(defaultArticleState);
 		onReset();
 	};
 
@@ -88,34 +68,59 @@ export const ArticleParamsForm = ({
 						задайте параметры
 					</Text>
 					<Select
-						selected={fontFamily}
-						onChange={setFontFamily}
+						selected={formState.fontFamilyOption}
+						onChange={(fontFamilyOption) =>
+							setFormState((params) => ({
+								...params,
+								fontFamilyOption,
+							}))
+						}
 						options={fontFamilyOptions}
 						title='шрифт'
 					/>
 					<RadioGroup
-						selected={fontSize}
+						selected={formState.fontSizeOption}
 						name='radio'
-						onChange={setFontSize}
+						onChange={(fontSizeOption) =>
+							setFormState((params) => ({
+								...params,
+								fontSizeOption,
+							}))
+						}
 						options={fontSizeOptions}
 						title='размер шрифта'
 					/>
 					<Select
-						selected={fontColor}
-						onChange={setFontColor}
+						selected={formState.fontColor}
+						onChange={(fontColor) =>
+							setFormState((params) => ({
+								...params,
+								fontColor,
+							}))
+						}
 						options={fontColors}
 						title='цвет шрифта'
 					/>
 					<Separator />
 					<Select
-						selected={backgroundColor}
-						onChange={setBackgroundColor}
+						selected={formState.backgroundColor}
+						onChange={(backgroundColor) =>
+							setFormState((params) => ({
+								...params,
+								backgroundColor,
+							}))
+						}
 						options={backgroundColors}
 						title='цвет фона'
 					/>
 					<Select
-						selected={contentWidth}
-						onChange={setContentWidth}
+						selected={formState.contentWidth}
+						onChange={(contentWidth) =>
+							setFormState((params) => ({
+								...params,
+								contentWidth,
+							}))
+						}
 						options={contentWidthArr}
 						title='ширина контента'
 					/>
