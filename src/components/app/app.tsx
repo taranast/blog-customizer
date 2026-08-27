@@ -3,10 +3,7 @@ import clsx from 'clsx';
 
 import { Article } from '../article/Article';
 import { ArticleParamsForm } from '../article-params-form/ArticleParamsForm';
-import {
-	ArticleStateType,
-	defaultArticleState,
-} from './../../constants/articleProps';
+import { defaultArticleState } from './../../constants/articleProps';
 
 import styles from './app.module.scss';
 
@@ -15,10 +12,6 @@ export const App = () => {
 
 	const onReset = () => {
 		setArticleState(defaultArticleState);
-	};
-
-	const onSubmit = (form: ArticleStateType) => {
-		setArticleState(form);
 	};
 
 	return (
@@ -33,7 +26,7 @@ export const App = () => {
 					'--bg-color': articleState.backgroundColor.value,
 				} as CSSProperties
 			}>
-			<ArticleParamsForm onSubmit={onSubmit} onReset={onReset} />
+			<ArticleParamsForm onSubmit={setArticleState} onReset={onReset} />
 			<Article />
 		</main>
 	);
