@@ -24,9 +24,10 @@ interface ArticleParamsFormProps {
 	onReset: () => void;
 }
 
-export const ArticleParamsForm = (
-	articleParamsForm: ArticleParamsFormProps
-) => {
+export const ArticleParamsForm = ({
+	onSubmit,
+	onReset,
+}: ArticleParamsFormProps) => {
 	const [isFormOpen, setIsFormOpen] = useState(false);
 	const [fontFamily, setFontFamily] = useState(
 		defaultArticleState.fontFamilyOption
@@ -49,7 +50,7 @@ export const ArticleParamsForm = (
 
 	const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
-		articleParamsForm.onSubmit({
+		onSubmit({
 			fontFamilyOption: fontFamily,
 			fontColor: fontColor,
 			backgroundColor: backgroundColor,
@@ -64,7 +65,7 @@ export const ArticleParamsForm = (
 		setBackgroundColor(defaultArticleState.backgroundColor);
 		setContentWidth(defaultArticleState.contentWidth);
 		setFontSize(defaultArticleState.fontSizeOption);
-		articleParamsForm.onReset();
+		onReset();
 	};
 
 	return (
