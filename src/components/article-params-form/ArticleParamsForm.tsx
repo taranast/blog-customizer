@@ -11,13 +11,21 @@ import {
 	backgroundColors,
 	contentWidthArr,
 	fontSizeOptions,
+	ArticleStateType,
 } from 'src/constants/articleProps';
 
 import styles from './ArticleParamsForm.module.scss';
 import clsx from 'clsx';
 import { useOutsideClickClose } from 'src/ui/select/hooks/useOutsideClickClose';
 
-export const ArticleParamsForm = () => {
+interface ArticleParamsFormProps {
+	onSubmit: (formState: ArticleStateType) => void;
+	onReset: () => void;
+}
+
+export const ArticleParamsForm = (
+	articleParamsForm: ArticleParamsFormProps
+) => {
 	const [isOpen, setIsOpen] = useState(false);
 	const [fontFamily, setFontFamily] = useState(fontFamilyOptions[0]);
 	const [fontColor, setFontColor] = useState(fontColors[0]);
@@ -29,8 +37,35 @@ export const ArticleParamsForm = () => {
 	useOutsideClickClose({
 		isOpen,
 		rootRef,
+		onClose: () => {
+			setFontFamily(fontFamily);
+			setFontColor(fontColor);
+			setBackgroundColor(backgroundColor);
+			setContentWidth(contentWidth);
+			setFontSize(fontSize);
+		},
 		onChange: setIsOpen,
 	});
+
+	const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+		event.preventDefault();
+		articleParamsForm.onSubmit({
+			fontFamilyOption: fontFamily,
+			fontColor: fontColor,
+			backgroundColor: backgroundColor,
+			contentWidth: contentWidth,
+			fontSizeOption: fontSize,
+		});
+	};
+
+	const handleReset = () => {
+		setFontFamily(fontFamilyOptions[0]);
+		setFontColor(fontColors[0]);
+		setBackgroundColor(backgroundColors[0]);
+		setContentWidth(contentWidthArr[0]);
+		setFontSize(fontSizeOptions[0]);
+		articleParamsForm.onReset();
+	};
 
 	return (
 		<div ref={rootRef}>
@@ -42,9 +77,9 @@ export const ArticleParamsForm = () => {
 			/>
 			<aside
 				className={clsx(styles.container, { [styles.container_open]: isOpen })}>
-				<form className={styles.form}>
+				<form className={styles.form} onSubmit={handleSubmit}>
 					<Text as='h2' size={31} weight={800} uppercase>
-						Задайте параметры
+						задайте параметры
 					</Text>
 					<Select
 						selected={fontFamily}
@@ -79,7 +114,12 @@ export const ArticleParamsForm = () => {
 						title='ширина контента'
 					/>
 					<div className={styles.bottomContainer}>
-						<Button title='Сбросить' htmlType='reset' type='clear' />
+						<Button
+							title='Сбросить'
+							htmlType='reset'
+							type='clear'
+							onClick={handleReset}
+						/>
 						<Button title='Применить' htmlType='submit' type='apply' />
 					</div>
 				</form>
