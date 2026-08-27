@@ -79,7 +79,10 @@ export const ArticleParamsForm = (
 				className={clsx(styles.container, {
 					[styles.container_open]: isFormOpen,
 				})}>
-				<form className={styles.form} onSubmit={handleSubmit}>
+				<form
+					className={styles.form}
+					onSubmit={handleSubmit}
+					onReset={handleReset}>
 					<Text as='h2' size={31} weight={800} uppercase>
 						задайте параметры
 					</Text>
@@ -116,12 +119,7 @@ export const ArticleParamsForm = (
 						title='ширина контента'
 					/>
 					<div className={styles.bottomContainer}>
-						<Button
-							title='Сбросить'
-							htmlType='reset'
-							type='clear'
-							onClick={handleReset}
-						/>
+						<Button title='Сбросить' htmlType='reset' type='clear' />
 						<Button title='Применить' htmlType='submit' type='apply' />
 					</div>
 				</form>
